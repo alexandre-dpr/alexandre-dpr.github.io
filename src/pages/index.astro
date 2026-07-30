@@ -5,9 +5,20 @@ import { ui } from '../utils/i18n';
 import I18n from '../components/I18n.astro';
 
 const apps = await getCollection('apps');
+
+const i18nMeta = Object.keys(ui).reduce((acc, lang) => {
+    // @ts-ignore
+    acc[lang] = {
+        // @ts-ignore
+        title: `Alexandre Dupré - ${ui[lang]['home.title']}`,
+        // @ts-ignore
+        description: ui[lang]['site.description'] || 'iOS Apps Studio'
+    };
+    return acc;
+}, {} as Record<string, { title: string, description: string }>);
 ---
 
-<Layout title="Alexandre Dupré - Portfolio iOS">
+<Layout title="Alexandre Dupré - iOS Studio" description="iOS Apps Studio" i18n={i18nMeta}>
     <div class="max-w-5xl mx-auto px-4 py-16">
         <div class="text-center mb-16 opacity-0 animate-fade-in-up">
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 mb-6">

@@ -29,5 +29,6 @@
   "form.template.other": "",
   "form.email.error": "Veuillez entrer une adresse email valide.",
   "form.success.desc": "Merci de nous avoir contactés. Nous traiterons votre demande et vous répondrons dans les plus brefs délais.",
-  "nav.tagline": "Studio iOS indépendant"
+  "nav.tagline": "Studio iOS indépendant",
+  "site.description": "Studio d'applications iOS"
 }

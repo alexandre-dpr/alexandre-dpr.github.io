@@ -74,6 +74,6 @@ const flags = {
 
         // Initialize UI on load
         const savedLang = localStorage.getItem('user-lang') || (navigator.language.slice(0, 2).toLowerCase());
-        setLanguage(Object.keys(flags).includes(savedLang) ? savedLang : 'fr');
+        setLanguage(Object.keys(flags).includes(savedLang) ? savedLang : 'en');
     });
 </script>

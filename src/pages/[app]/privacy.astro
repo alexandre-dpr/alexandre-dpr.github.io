@@ -28,9 +28,16 @@ const localizedDocs = await Promise.all(
 );
 
 const meta = app.data.fr || { title: appId };
+
+const i18nMeta = Object.keys(ui).reduce((acc, lang) => {
+    // @ts-ignore
+    const title = ui[lang]['app.privacy'] + ' - ' + (app.data[lang as keyof typeof ui]?.title || meta.title);
+    acc[lang] = { title };
+    return acc;
+}, {} as Record<string, { title: string }>);
 ---
 
-<Layout title={`Confidentialité - ${meta.title}`} description={`Politique de confidentialité de l'application ${meta.title}`}>
+<Layout title={`Confidentialité - ${meta.title}`} i18n={i18nMeta}>
     <div class="w-[95%] md:w-[80%] max-w-4xl mx-auto py-12">
         
         {/* Contextual Header */}

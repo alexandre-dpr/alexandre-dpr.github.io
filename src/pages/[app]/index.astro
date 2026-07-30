@@ -34,13 +34,22 @@ const localizedDocs = await Promise.all(
 // Actually meta.title is usually the same, but subtitle changes.
 const allMeta = Object.keys(ui).map(lang => ({
   lang,
-  data: app.data[lang] || meta
+  data: app.data[lang as keyof typeof ui] || meta
 }));
+
+const i18nMeta = Object.keys(ui).reduce((acc, lang) => {
+    const data = app.data[lang as keyof typeof ui] || meta;
+    acc[lang] = {
+        title: data.title,
+        description: data.subtitle
+    };
+    return acc;
+}, {} as Record<string, { title: string, description: string }>);
 
 const screenshots = [1, 2, 3, 4, 5].map(n => `/assets/${appId}/screenshots/en/${n}.jpg`); // Defaulting to EN screenshots for now for simplicity, or we could render 6 carousels... let's just use EN.
 ---
 
-<Layout title={meta.title} description={meta.subtitle}>
+<Layout title={meta.title} description={meta.subtitle} i18n={i18nMeta}>
     
     <div class="w-[95%] md:w-[85%] max-w-7xl mx-auto px-4 py-8">
         
@@ -250,7 +259,7 @@ const screenshots = [1, 2, 3, 4, 5].map(n => `/assets/${appId}/screenshots/en/${
             }
 
             private initLanguageListener() {
-                const initialLang = document.documentElement.lang || 'fr';
+                const initialLang = document.documentElement.lang || 'en';
                 this.updateImagesLang(initialLang);
 
                 window.addEventListener('languageChanged', ((e: CustomEvent) => {

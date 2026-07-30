@@ -129,7 +129,7 @@ const { appTitle } = Astro.props;
                 
                 const tplContainer = document.getElementById(`tpl-${checked.value.toLowerCase()}`);
                 if (tplContainer) {
-                    const lang = document.documentElement.lang || 'fr';
+                    const lang = document.documentElement.lang || 'en';
                     const activeLangSpan = tplContainer.querySelector(`span[data-lang="${lang}"]`);
                     
                     if (activeLangSpan) {

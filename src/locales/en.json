@@ -29,5 +29,6 @@
   "form.template.other": "",
   "form.email.error": "Please enter a valid email address.",
   "form.success.desc": "Thank you for contacting us. We will process your request and get back to you as soon as possible.",
-  "nav.tagline": "Independent iOS Studio"
+  "nav.tagline": "Independent iOS Studio",
+  "site.description": "iOS Apps Studio"
 }

@@ -19,9 +19,18 @@ const { app: appId } = Astro.params;
 const { app } = Astro.props;
 
 const meta = app.data.fr || { title: appId };
+
+import { ui } from '../../utils/i18n';
+
+const i18nMeta = Object.keys(ui).reduce((acc, lang) => {
+    // @ts-ignore
+    const title = ui[lang]['app.support'] + ' - ' + (app.data[lang as keyof typeof ui]?.title || meta.title);
+    acc[lang] = { title };
+    return acc;
+}, {} as Record<string, { title: string }>);
 ---
 
-<Layout title={`Support - ${meta.title}`} description={`Assistance pour l'application ${meta.title}`}>
+<Layout title={`Support - ${meta.title}`} i18n={i18nMeta}>
     <div class="w-[95%] md:w-[80%] max-w-3xl mx-auto px-4 py-12">
         
         {/* Contextual Header */}

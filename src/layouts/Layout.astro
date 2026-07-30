@@ -3,34 +3,55 @@ import '../styles/global.css';
 import LanguagePicker from '../components/LanguagePicker.astro';
 import I18n from '../components/I18n.astro';
 import { ClientRouter } from 'astro:transitions';
+import { ui } from '../utils/i18n';
 
 interface Props {
 	title: string;
     description?: string;
+    i18n?: Record<string, { title: string, description?: string }>;
 }
 
-const { title, description = "Portfolio d'applications iOS" } = Astro.props;
+const { title, description, i18n } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en" class="lang-fr">
+<html lang="en" class="lang-en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content={description} />
+		<meta name="description" content={description} id="meta-description" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
         <ClientRouter />
+        
+        <script is:inline id="i18n-meta" type="application/json" set:html={JSON.stringify(i18n || {})}></script>
         <script is:inline>
             (function() {
                 var valid = ['fr', 'en', 'es', 'it', 'pt', 'de'];
                 var stored = localStorage.getItem('user-lang');
                 var browser = navigator.language.slice(0, 2).toLowerCase();
-                var lang = valid.includes(stored) ? stored : (valid.includes(browser) ? browser : 'fr');
+                var lang = valid.includes(stored) ? stored : (valid.includes(browser) ? browser : 'en');
                 document.documentElement.lang = lang;
                 document.documentElement.className = 'lang-' + lang;
                 window.initialLang = lang;
+                
+                var metaDataEl = document.getElementById('i18n-meta');
+                var metaData = metaDataEl && metaDataEl.textContent ? JSON.parse(metaDataEl.textContent) : {};
+                
+                function updateMeta(l) {
+                    if (metaData[l]) {
+                        if (metaData[l].title) document.title = metaData[l].title;
+                        var descEl = document.getElementById('meta-description');
+                        if (descEl && metaData[l].description) descEl.setAttribute('content', metaData[l].description);
+                    }
+                }
+                
+                updateMeta(lang);
+
+                window.addEventListener('languageChanged', function(e) {
+                    if (e.detail && e.detail.lang) updateMeta(e.detail.lang);
+                });
             })();
         </script>
 	</head>
