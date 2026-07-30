@@ -1,0 +1,10 @@
+---
+import { ui } from '../utils/i18n';
+const { id, class: className = "" } = Astro.props;
+---
+{Object.entries(ui).map(([lang, translations]) => (
+    <span data-lang={lang} class={`i18n-text ${className}`}>
+        {/* @ts-ignore */}
+        {translations[id]}
+    </span>
+))}

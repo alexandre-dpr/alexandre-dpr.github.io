@@ -1,0 +1,51 @@
+---
+import I18n from '../../components/I18n.astro';
+import Layout from '../../layouts/Layout.astro';
+import SupportForm from '../../components/SupportForm.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const allApps = await getCollection('apps');
+  return allApps.map(app => {
+    const appId = app.id.split('/')[0];
+    return {
+      params: { app: appId },
+      props: { app }
+    };
+  });
+}
+
+const { app: appId } = Astro.params;
+const { app } = Astro.props;
+
+const meta = app.data.fr || { title: appId };
+---
+
+<Layout title={`Support - ${meta.title}`} description={`Assistance pour l'application ${meta.title}`}>
+    <div class="w-[95%] md:w-[80%] max-w-3xl mx-auto px-4 py-12">
+        
+        {/* Contextual Header */}
+        <div class="sticky top-[85px] z-40 mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between bg-white/95 backdrop-blur-md p-5 rounded-[1.5rem] shadow-sm border border-slate-200/60 gap-4">
+            <div class="flex items-center gap-4">
+                <img src={`/assets/${appId}/icon.png`} alt={meta.title} class="w-14 h-14 rounded-2xl shadow-sm border border-slate-100" />
+                <div>
+                    <h2 class="text-xl font-bold text-slate-900 leading-tight">{meta.title}</h2>
+                    <p class="text-sm font-medium text-slate-500"><I18n id="app.support" /></p>
+                </div>
+            </div>
+            <a href={`/${appId}`} class="w-full sm:w-auto px-5 py-2.5 bg-slate-50 hover:bg-slate-100 text-slate-700 font-medium rounded-xl text-sm transition-colors flex items-center justify-center gap-2 border border-slate-200">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                <I18n id="nav.back" />
+            </a>
+        </div>
+
+        <div class="bg-white p-8 md:p-10 rounded-[2rem] shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07)] border border-slate-100">
+            <div id="support-header">
+                <h1 class="text-3xl font-bold tracking-tight text-slate-900 mb-2">Assistance</h1>
+                <p class="text-slate-500 mb-8">Nous sommes là pour vous aider avec <strong>{meta.title}</strong>. Remplissez le formulaire ci-dessous et nous vous répondrons dans les plus brefs délais.</p>
+            </div>
+            
+            <SupportForm appTitle={meta.title} lang="fr" />
+        </div>
+    </div>
+</Layout>

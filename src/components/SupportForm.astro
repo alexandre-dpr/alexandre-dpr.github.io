@@ -1,0 +1,252 @@
+---
+import I18n from './I18n.astro';
+
+interface Props {
+  appTitle: string;
+}
+
+const { appTitle } = Astro.props;
+---
+
+<form action="https://api.web3forms.com/submit" method="POST" id="support-form">
+    <input type="hidden" name="access_key" value="30a108a2-312c-4fb0-a253-54ba0a23b4fd">
+    <input type="hidden" name="subject" value={`Demande de support - ${appTitle}`}>
+    <input type="hidden" name="from_name" value={`Support - ${appTitle}`}>
+    <input type="hidden" name="Application" id="app-title-hidden" value={appTitle}>
+    
+    <div id="form-content" class="space-y-6">
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+            <label for="name" class="block text-sm font-medium text-slate-700 mb-2"><I18n id="form.name" /></label>
+            <input type="text" name="name" id="name" required class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all shadow-sm">
+        </div>
+        
+        <div>
+            <label for="email" class="block text-sm font-medium text-slate-700 mb-2"><I18n id="form.email" /></label>
+            <input type="email" name="email" id="email" required pattern=".*\.[a-zA-Z]{2,}" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all shadow-sm">
+            <p id="email-error" class="hidden mt-2 text-sm text-red-500 font-medium">
+                <I18n id="form.email.error" />
+            </p>
+        </div>
+    </div>
+
+    <div>
+        <label class="block text-sm font-medium text-slate-700 mb-3"><I18n id="form.category" /></label>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <label class="cursor-pointer relative">
+                <input type="radio" name="category" value="Bug" class="peer sr-only" checked>
+                <div class="px-4 py-3 text-sm text-center rounded-xl border-2 border-slate-200 text-slate-600 font-medium peer-checked:border-blue-600 peer-checked:bg-blue-50 peer-checked:text-blue-700 hover:border-blue-300 transition-all select-none">
+                    <I18n id="form.cat.bug" />
+                </div>
+            </label>
+            <label class="cursor-pointer relative">
+                <input type="radio" name="category" value="Idea" class="peer sr-only">
+                <div class="px-4 py-3 text-sm text-center rounded-xl border-2 border-slate-200 text-slate-600 font-medium peer-checked:border-blue-600 peer-checked:bg-blue-50 peer-checked:text-blue-700 hover:border-blue-300 transition-all select-none">
+                    <I18n id="form.cat.idea" />
+                </div>
+            </label>
+            <label class="cursor-pointer relative">
+                <input type="radio" name="category" value="Other" class="peer sr-only">
+                <div class="px-4 py-3 text-sm text-center rounded-xl border-2 border-slate-200 text-slate-600 font-medium peer-checked:border-blue-600 peer-checked:bg-blue-50 peer-checked:text-blue-700 hover:border-blue-300 transition-all select-none">
+                    <I18n id="form.cat.other" />
+                </div>
+            </label>
+        </div>
+    </div>
+    
+    <div>
+        <label for="message" class="block text-sm font-medium text-slate-700 mb-2"><I18n id="form.msg.label" /></label>
+        <textarea name="message" id="message" rows="5" required class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all shadow-sm resize-y"></textarea>
+    </div>
+    
+    <!-- Honeypot -->
+    <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+    
+    <!-- hCaptcha Anti-Spam -->
+    <div class="h-captcha flex justify-center" data-captcha="true" data-callback="onCaptchaSuccess" data-expired-callback="onCaptchaExpired"></div>
+
+        <button type="submit" id="submit-btn" disabled class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-6 rounded-xl transition-all shadow-sm flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-blue-600">
+            <span><I18n id="form.submit" /></span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-1 transition-transform"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+        </button>
+    </div>
+    
+    <div id="success-msg" class="hidden py-12 flex flex-col items-center justify-center text-center animate-in fade-in zoom-in duration-500">
+        <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-6 shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        </div>
+        <h3 class="text-2xl font-bold text-slate-900 mb-3"><I18n id="form.success" /></h3>
+        <p class="text-slate-500 max-w-md"><I18n id="form.success.desc" /></p>
+    </div>
+</form>
+
+<!-- Hidden elements for JS to extract translated templates -->
+<div class="hidden" aria-hidden="true" id="templates-container">
+    <div id="tpl-bug" style="white-space: pre-wrap;"><I18n id="form.template.bug" /></div>
+    <div id="tpl-idea" style="white-space: pre-wrap;"><I18n id="form.template.idea" /></div>
+    <div id="tpl-other" style="white-space: pre-wrap;"><I18n id="form.template.other" /></div>
+</div>
+
+<script>
+    class SupportFormController {
+        private form: HTMLFormElement | null;
+        private submitBtn: HTMLButtonElement | null;
+        private textarea: HTMLTextAreaElement | null;
+        private radios: NodeListOf<HTMLInputElement>;
+        private emailInput: HTMLInputElement | null;
+        private emailError: HTMLElement | null;
+        private currentTemplate = '';
+        private isCaptchaSolved = false;
+
+        constructor() {
+            this.form = document.getElementById('support-form') as HTMLFormElement;
+            this.submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+            this.textarea = document.getElementById('message') as HTMLTextAreaElement;
+            this.radios = document.querySelectorAll('input[name="category"]');
+            this.emailInput = document.getElementById('email') as HTMLInputElement;
+            this.emailError = document.getElementById('email-error');
+
+            if (!this.form) return;
+
+            this.initTemplateLogic();
+            this.initValidation();
+            this.initSubmission();
+            this.initCaptcha();
+        }
+
+        private initTemplateLogic() {
+            const autoResize = () => {
+                if (!this.textarea) return;
+                this.textarea.style.height = 'auto';
+                this.textarea.style.height = this.textarea.scrollHeight + 2 + 'px';
+            };
+
+            const updateTemplate = () => {
+                if (!this.textarea) return;
+                const checked = document.querySelector('input[name="category"]:checked') as HTMLInputElement;
+                if (!checked) return;
+                
+                const tplContainer = document.getElementById(`tpl-${checked.value.toLowerCase()}`);
+                if (tplContainer) {
+                    const lang = document.documentElement.lang || 'fr';
+                    const activeLangSpan = tplContainer.querySelector(`span[data-lang="${lang}"]`);
+                    
+                    if (activeLangSpan) {
+                        const newTemplate = activeLangSpan.textContent || '';
+                        if (this.textarea.value.trim() === '' || this.textarea.value === this.currentTemplate) {
+                            this.textarea.value = newTemplate;
+                            this.currentTemplate = newTemplate;
+                            autoResize();
+                        }
+                    }
+                }
+            };
+
+            this.radios.forEach(r => r.addEventListener('change', updateTemplate));
+            if (this.textarea) this.textarea.addEventListener('input', autoResize);
+            
+            setTimeout(updateTemplate, 50);
+            window.addEventListener('languageChanged', () => setTimeout(updateTemplate, 10));
+        }
+
+        private initValidation() {
+            const checkFormValidity = () => {
+                if (!this.form || !this.submitBtn) return;
+                const isValid = this.form.checkValidity() && this.isCaptchaSolved;
+                this.submitBtn.disabled = !isValid;
+            };
+
+            const validateEmailUI = () => {
+                if (!this.emailInput || !this.emailError) return;
+                if (this.emailInput.value.trim().length > 0 && !this.emailInput.checkValidity()) {
+                    this.emailInput.classList.add('border-red-500', 'focus:ring-red-500', 'focus:border-red-500', 'bg-red-50');
+                    this.emailInput.classList.remove('border-slate-300', 'focus:ring-blue-500', 'focus:border-blue-500');
+                    this.emailError.classList.remove('hidden');
+                } else {
+                    this.emailInput.classList.remove('border-red-500', 'focus:ring-red-500', 'focus:border-red-500', 'bg-red-50');
+                    this.emailInput.classList.add('border-slate-300', 'focus:ring-blue-500', 'focus:border-blue-500');
+                    this.emailError.classList.add('hidden');
+                }
+            };
+
+            if (this.emailInput) {
+                this.emailInput.addEventListener('blur', validateEmailUI);
+                this.emailInput.addEventListener('input', () => {
+                    if (this.emailError && !this.emailError.classList.contains('hidden')) validateEmailUI();
+                });
+            }
+
+            this.form?.addEventListener('input', checkFormValidity);
+            this.form?.addEventListener('change', checkFormValidity);
+            
+            // Expose for captcha callbacks
+            (window as any)._checkFormValidity = checkFormValidity;
+        }
+
+        private initCaptcha() {
+            (window as any).onCaptchaSuccess = () => {
+                this.isCaptchaSolved = true;
+                if ((window as any)._checkFormValidity) (window as any)._checkFormValidity();
+            };
+            (window as any).onCaptchaExpired = () => {
+                this.isCaptchaSolved = false;
+                if ((window as any)._checkFormValidity) (window as any)._checkFormValidity();
+            };
+        }
+
+        private initSubmission() {
+            this.form?.addEventListener('submit', (e) => {
+                e.preventDefault();
+                if (this.submitBtn) {
+                    this.submitBtn.disabled = true;
+                    this.submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+                    const span = this.submitBtn.querySelector('span');
+                    if (span) span.innerHTML = '...';
+                }
+                
+                const formData = new FormData(this.form!);
+                const appTitleInput = document.getElementById('app-title-hidden') as HTMLInputElement;
+                const clientAppTitle = appTitleInput ? appTitleInput.value : 'App';
+                
+                const category = formData.get('category');
+                let customSubject = `[${clientAppTitle}] Support Request`;
+                if (category === 'Bug') customSubject = `[${clientAppTitle}] [Bug Report] (Web Form)`;
+                if (category === 'Idea') customSubject = `[${clientAppTitle}] [Feature Request] (Web Form)`;
+                formData.set('subject', customSubject);
+                
+                fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify(Object.fromEntries(formData))
+                })
+                .then(async (response) => {
+                    if (response.status == 200) {
+                        this.form?.reset();
+                        const formContent = document.getElementById('form-content');
+                        const supportHeader = document.getElementById('support-header');
+                        const successMsg = document.getElementById('success-msg');
+                        
+                        if (formContent) formContent.style.display = 'none';
+                        if (supportHeader) supportHeader.style.display = 'none';
+                        if (successMsg) successMsg.classList.remove('hidden');
+                        if (this.submitBtn) this.submitBtn.style.display = 'none';
+                    } else {
+                        if (this.submitBtn) {
+                            this.submitBtn.disabled = false;
+                            this.submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+                            const span = this.submitBtn.querySelector('span');
+                            if (span) span.innerHTML = 'Erreur. Réessayez.';
+                        }
+                    }
+                })
+                .catch(console.error);
+            });
+        }
+    }
+
+    document.addEventListener('astro:page-load', () => {
+        new SupportFormController();
+    });
+</script>
+<script src="https://web3forms.com/client/script.js" async defer></script>

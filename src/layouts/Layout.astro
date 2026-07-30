@@ -1,0 +1,88 @@
+---
+import '../styles/global.css';
+import LanguagePicker from '../components/LanguagePicker.astro';
+import I18n from '../components/I18n.astro';
+import { ClientRouter } from 'astro:transitions';
+
+interface Props {
+	title: string;
+    description?: string;
+}
+
+const { title, description = "Portfolio d'applications iOS" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="lang-fr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content={description} />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+        <ClientRouter />
+        <script is:inline>
+            (function() {
+                var valid = ['fr', 'en', 'es', 'it', 'pt', 'de'];
+                var stored = localStorage.getItem('user-lang');
+                var browser = navigator.language.slice(0, 2).toLowerCase();
+                var lang = valid.includes(stored) ? stored : (valid.includes(browser) ? browser : 'fr');
+                document.documentElement.lang = lang;
+                document.documentElement.className = 'lang-' + lang;
+                window.initialLang = lang;
+            })();
+        </script>
+	</head>
+	<body class="bg-slate-50 text-slate-900 font-sans antialiased min-h-screen flex flex-col selection:bg-blue-100 selection:text-blue-900">
+        <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
+            <div class="max-w-5xl mx-auto px-4 py-4 flex justify-between items-center">
+                <a href="/" class="text-xl font-semibold tracking-tight text-slate-900 hover:text-blue-600 transition-colors">
+                    Alexandre Dupré <span class="font-light text-slate-500 ml-1.5">Apps</span>
+                </a>
+                <nav class="flex gap-4 items-center">
+                    <slot name="header-actions" />
+                    <LanguagePicker />
+                </nav>
+            </div>
+        </header>
+        
+        <main class="flex-grow">
+		    <slot />
+        </main>
+        
+        <footer class="bg-slate-900 text-slate-400 py-12 text-sm text-center mt-12">
+            <div class="max-w-5xl mx-auto px-4">
+                <p>&copy; {new Date().getFullYear()} Alexandre Dupré. <I18n id="footer.rights" /></p>
+            </div>
+        </footer>
+
+        <script>
+            const initSkeletons = () => {
+                document.querySelectorAll('img.img-lazy').forEach(element => {
+                    const img = element as HTMLImageElement;
+                    const wrapper = img.closest('.skeleton-wrapper');
+                    const onLoad = () => {
+                        if (wrapper) wrapper.classList.remove('skeleton');
+                        img.classList.remove('opacity-0');
+                    };
+                    if (img.complete) {
+                        onLoad();
+                    } else {
+                        img.addEventListener('load', onLoad, { once: true });
+                        img.addEventListener('error', onLoad, { once: true });
+                    }
+                });
+            };
+
+            document.addEventListener('astro:page-load', () => {
+                initSkeletons();
+            });
+            
+            // Allow triggering from other scripts via events (e.g. language change)
+            window.addEventListener('update-skeletons', () => {
+                setTimeout(initSkeletons, 10);
+            });
+        </script>
+	</body>
+</html>

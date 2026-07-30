@@ -1,0 +1,31 @@
+{
+  "appStoreUrl": "https://apps.apple.com/app/anchor-reader/id6759027917",
+  "developer": "Alexandre Dupre",
+  "category": "Books - Productivity",
+  "compatibility": "iOS 15.1 or later",
+  "price": "Free",
+  "fr": {
+    "title": "Anchor Reader",
+    "subtitle": "Lecture Rapide, Mot par Mot"
+  },
+  "en": {
+    "title": "Anchor Reader",
+    "subtitle": "One Word Reading, Speed Reader"
+  },
+  "es": {
+    "title": "Anchor RSVP Reader",
+    "subtitle": "Lectura Rápida, Una Palabra"
+  },
+  "de": {
+    "title": "Anchor Reader",
+    "subtitle": "Speed Reading, Ein Wort"
+  },
+  "it": {
+    "title": "Anchor RSVP Reader",
+    "subtitle": "Lettura Veloce, Una Parola"
+  },
+  "pt": {
+    "title": "Anchor RSVP Reader",
+    "subtitle": "Leitura Rápida, Uma Palavra"
+  }
+}

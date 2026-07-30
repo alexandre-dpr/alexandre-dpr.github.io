@@ -1,0 +1,79 @@
+---
+import { languages } from '../utils/i18n';
+
+const flags = {
+  fr: 'fr',
+  en: 'gb',
+  es: 'es',
+  it: 'it',
+  pt: 'pt',
+  de: 'de'
+};
+---
+
+<div class="relative group" id="language-picker">
+    <button class="flex items-center gap-1 text-2xl hover:scale-105 transition-transform p-1 rounded-full cursor-default">
+        <img id="current-flag" src={`https://flagcdn.com/w40/${flags['fr']}.png`} width="24" alt="fr" class="rounded-sm shadow-sm border border-slate-200/50" />
+    </button>
+    
+    <div class="absolute right-0 top-full mt-1 w-36 bg-white rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-slate-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 flex flex-col overflow-hidden z-50 py-1">
+        {Object.entries(languages).map(([code, name]) => (
+            <button 
+                data-lang-select={code}
+                class="lang-option px-4 py-2 text-sm hover:bg-slate-50 flex items-center gap-3 transition-colors text-slate-700 cursor-pointer w-full text-left"
+            >
+                <img src={`https://flagcdn.com/w20/${flags[code as keyof typeof flags]}.png`} width="20" alt={code} class="rounded-sm shadow-sm" />
+                {name}
+            </button>
+        ))}
+    </div>
+</div>
+
+<script>
+    const flags: Record<string, string> = {
+        fr: 'fr', en: 'gb', es: 'es', it: 'it', pt: 'pt', de: 'de'
+    };
+    
+    const setLanguage = (lang: string) => {
+        if (!flags[lang]) lang = 'fr';
+        
+        // Update global class
+        document.documentElement.className = `lang-${lang}`;
+        localStorage.setItem('user-lang', lang);
+        
+        // Update flag in picker
+        const currentFlag = document.getElementById('current-flag') as HTMLImageElement;
+        if (currentFlag) {
+            currentFlag.src = `https://flagcdn.com/w40/${flags[lang]}.png`;
+            currentFlag.alt = lang;
+        }
+        
+        // Update bold styling on dropdown options
+        document.querySelectorAll('.lang-option').forEach(btn => {
+            if (btn.getAttribute('data-lang-select') === lang) {
+                btn.classList.add('font-bold', 'bg-slate-50/50', 'text-blue-600');
+                btn.classList.remove('text-slate-700');
+            } else {
+                btn.classList.remove('font-bold', 'bg-slate-50/50', 'text-blue-600');
+                btn.classList.add('text-slate-700');
+            }
+        });
+        
+        // Notify other components
+        window.dispatchEvent(new CustomEvent('languageChanged', { detail: { lang } }));
+    };
+
+    document.addEventListener('astro:page-load', () => {
+        // Attach click events
+        document.querySelectorAll('.lang-option').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const lang = (e.currentTarget as HTMLElement).getAttribute('data-lang-select');
+                if (lang) setLanguage(lang);
+            });
+        });
+
+        // Initialize UI on load
+        const savedLang = localStorage.getItem('user-lang') || (navigator.language.slice(0, 2).toLowerCase());
+        setLanguage(Object.keys(flags).includes(savedLang) ? savedLang : 'fr');
+    });
+</script>
