@@ -40,8 +40,10 @@ const allMeta = Object.keys(ui).map(lang => ({
 const i18nMeta = Object.keys(ui).reduce((acc, lang) => {
     const data = app.data[lang as keyof typeof ui] || meta;
     acc[lang] = {
-        title: data.title,
-        description: data.subtitle
+        // @ts-ignore
+        title: `${data.title} - Alexandre Dupré`,
+        // @ts-ignore
+        description: data.subtitle || ""
     };
     return acc;
 }, {} as Record<string, { title: string, description: string }>);
@@ -49,7 +51,7 @@ const i18nMeta = Object.keys(ui).reduce((acc, lang) => {
 const screenshots = [1, 2, 3, 4, 5].map(n => `/assets/${appId}/screenshots/en/${n}.jpg`); // Defaulting to EN screenshots for now for simplicity, or we could render 6 carousels... let's just use EN.
 ---
 
-<Layout title={meta.title} description={meta.subtitle} i18n={i18nMeta}>
+<Layout title={meta.title} description={meta.subtitle} image={`/assets/${appId}/icon.png`} i18n={i18nMeta}>
     
     <div class="w-[95%] md:w-[85%] max-w-7xl mx-auto px-4 py-8">
         
@@ -76,6 +78,7 @@ const screenshots = [1, 2, 3, 4, 5].map(n => `/assets/${appId}/screenshots/en/${
         {/* Screenshots */}
         <div class="relative group/slider mb-12 opacity-0 animate-fade-in-up" style="animation-delay: 150ms">
             <button id="slider-left" class="hidden md:flex absolute -left-5 top-1/2 -translate-y-1/2 z-10 bg-white/95 backdrop-blur shadow-[0_4px_20px_rgb(0,0,0,0.15)] border border-slate-200 w-12 h-12 rounded-full items-center justify-center text-slate-600 hover:text-slate-900 hover:scale-110 active:scale-95 transition-all opacity-0 group-hover/slider:opacity-100 disabled:!opacity-0 disabled:pointer-events-none cursor-pointer">
+                <span class="sr-only"><I18n id="a11y.prev_img" /></span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
             </button>
             
@@ -88,6 +91,7 @@ const screenshots = [1, 2, 3, 4, 5].map(n => `/assets/${appId}/screenshots/en/${
             </div>
 
             <button id="slider-right" class="hidden md:flex absolute -right-5 top-1/2 -translate-y-1/2 z-10 bg-white/95 backdrop-blur shadow-[0_4px_20px_rgb(0,0,0,0.15)] border border-slate-200 w-12 h-12 rounded-full items-center justify-center text-slate-600 hover:text-slate-900 hover:scale-110 active:scale-95 transition-all opacity-0 group-hover/slider:opacity-100 disabled:!opacity-0 disabled:pointer-events-none cursor-pointer">
+                <span class="sr-only"><I18n id="a11y.next_img" /></span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
             </button>
         </div>
@@ -160,14 +164,17 @@ const screenshots = [1, 2, 3, 4, 5].map(n => `/assets/${appId}/screenshots/en/${
             <img id="fs-img" src="" class="max-h-[95vh] max-w-[95vw] object-contain rounded-2xl shadow-2xl mx-auto cursor-default select-none" />
             
             <button id="fs-prev" class="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white rounded-full p-3 backdrop-blur transition-all cursor-pointer">
+                <span class="sr-only"><I18n id="a11y.prev_img" /></span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
             </button>
             
             <button id="fs-next" class="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white rounded-full p-3 backdrop-blur transition-all cursor-pointer">
+                <span class="sr-only"><I18n id="a11y.next_img" /></span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
             </button>
             
             <button class="fs-close-btn absolute top-4 right-4 sm:top-8 sm:right-8 bg-white/10 hover:bg-white/20 text-white rounded-full p-2 backdrop-blur transition-all cursor-pointer">
+                <span class="sr-only"><I18n id="a11y.close" /></span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
             </button>
         </div>
@@ -247,15 +254,30 @@ const screenshots = [1, 2, 3, 4, 5].map(n => `/assets/${appId}/screenshots/en/${
             private updateImagesLang(lang: string) {
                 this.galleryImgs.forEach(img => {
                     const currentSrc = img.src;
-                    const newSrc = currentSrc.replace(/\/screenshots\/[a-z]{2}\//, `/screenshots/${lang}/`);
+                    // Always calculate new src from an english base to avoid chained replacements if a language is missing
+                    const baseSrc = currentSrc.replace(/\/screenshots\/[a-z]{2}\//, `/screenshots/en/`);
+                    const newSrc = lang === 'en' ? baseSrc : baseSrc.replace(`/screenshots/en/`, `/screenshots/${lang}/`);
+                    
                     if (currentSrc !== newSrc) {
                         const wrapper = img.closest('.skeleton-wrapper');
                         if (wrapper) wrapper.classList.add('skeleton'); 
                         img.classList.add('opacity-0'); 
+                        
+                        // Fallback to english if screenshot for this language doesn't exist
+                        img.onerror = () => {
+                            if (lang !== 'en' && img.src !== baseSrc) {
+                                img.src = baseSrc; // Fallback
+                            }
+                        };
+                        
+                        img.onload = () => {
+                            if (wrapper) wrapper.classList.remove('skeleton');
+                            img.classList.remove('opacity-0');
+                        };
+                        
                         img.src = newSrc;
                     }
                 });
-                window.dispatchEvent(new CustomEvent('update-skeletons'));
             }
 
             private initLanguageListener() {

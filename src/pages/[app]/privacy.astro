@@ -37,20 +37,20 @@ const i18nMeta = Object.keys(ui).reduce((acc, lang) => {
 }, {} as Record<string, { title: string }>);
 ---
 
-<Layout title={`Confidentialité - ${meta.title}`} i18n={i18nMeta}>
-    <div class="w-[95%] md:w-[80%] max-w-4xl mx-auto py-12">
+<Layout title={`Confidentialité - ${meta.title}`} image={`/assets/${appId}/icon.png`} i18n={i18nMeta}>
+    <div class="w-[95%] md:w-[80%] max-w-4xl mx-auto py-6 sm:py-12">
         
         {/* Contextual Header */}
-        <div class="sticky top-[85px] z-40 mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between bg-white/95 backdrop-blur-md p-5 rounded-[1.5rem] shadow-sm border border-slate-200/60 gap-4">
-            <div class="flex items-center gap-4">
-                <img src={`/assets/${appId}/icon.png`} alt={meta.title} class="w-14 h-14 rounded-2xl shadow-sm border border-slate-100" />
-                <div>
-                    <h2 class="text-xl font-bold text-slate-900 leading-tight">{meta.title}</h2>
-                    <p class="text-sm font-medium text-slate-500"><I18n id="app.privacy" /></p>
+        <div class="sticky top-[65px] sm:top-[75px] z-40 mb-6 sm:mb-8 flex flex-row items-center justify-between bg-white/95 backdrop-blur-md p-3 sm:p-5 rounded-2xl sm:rounded-[1.5rem] shadow-sm border border-slate-200/60 gap-3">
+            <div class="flex items-center gap-3 sm:gap-4 overflow-hidden">
+                <img src={`/assets/${appId}/icon.png`} alt={meta.title} class="w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl shadow-sm border border-slate-100 shrink-0" />
+                <div class="min-w-0">
+                    <h2 class="text-base sm:text-xl font-bold text-slate-900 leading-tight truncate">{meta.title}</h2>
+                    <p class="text-xs sm:text-sm font-medium text-slate-500 truncate"><I18n id="app.privacy" /></p>
                 </div>
             </div>
-            <a href={`/${appId}`} class="w-full sm:w-auto px-5 py-2.5 bg-slate-50 hover:bg-slate-100 text-slate-700 font-medium rounded-xl text-sm transition-colors flex items-center justify-center gap-2 border border-slate-200">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            <a href={`/${appId}`} class="shrink-0 px-3 py-2 sm:px-5 sm:py-2.5 bg-slate-50 hover:bg-slate-100 text-slate-700 font-medium rounded-xl text-xs sm:text-sm transition-colors flex items-center justify-center gap-1.5 sm:gap-2 border border-slate-200">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 sm:w-4 sm:h-4"><path d="m15 18-6-6 6-6"/></svg>
                 <I18n id="nav.back" />
             </a>
         </div>

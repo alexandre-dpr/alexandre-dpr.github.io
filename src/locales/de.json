@@ -30,5 +30,15 @@
   "form.email.error": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
   "form.success.desc": "Vielen Dank für Ihre Kontaktaufnahme. Wir werden Ihre Anfrage bearbeiten und uns so schnell wie möglich bei Ihnen melden.",
   "nav.tagline": "Unabhängiges iOS-Studio",
-  "site.description": "iOS-Apps-Studio"
+  "site.description": "iOS-Apps-Studio",
+  "page.404.title": "Seite nicht gefunden",
+  "page.404.desc": "Die App oder Seite, die Sie suchen, existiert nicht oder wurde verschoben.",
+  "nav.home": "Zurück zur Startseite",
+  "a11y.lang_picker": "Sprache ändern",
+  "a11y.prev_img": "Vorheriges Bild",
+  "a11y.next_img": "Nächstes Bild",
+  "a11y.close": "Schließen",
+  "support.title": "Hilfe & Support",
+  "support.desc.1": "Wir sind hier, um Ihnen bei ",
+  "support.desc.2": " zu helfen. Füllen Sie das untenstehende Formular aus und wir melden uns so schnell wie möglich bei Ihnen."
 }

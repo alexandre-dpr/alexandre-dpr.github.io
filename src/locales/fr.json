@@ -30,5 +30,15 @@
   "form.email.error": "Veuillez entrer une adresse email valide.",
   "form.success.desc": "Merci de nous avoir contactés. Nous traiterons votre demande et vous répondrons dans les plus brefs délais.",
   "nav.tagline": "Studio iOS indépendant",
-  "site.description": "Studio d'applications iOS"
+  "site.description": "Studio d'applications iOS",
+  "page.404.title": "Page introuvable",
+  "page.404.desc": "L'application ou la page que vous cherchez n'existe pas ou a été déplacée.",
+  "nav.home": "Retour à l'accueil",
+  "a11y.lang_picker": "Changer la langue",
+  "a11y.prev_img": "Image précédente",
+  "a11y.next_img": "Image suivante",
+  "a11y.close": "Fermer",
+  "support.title": "Assistance",
+  "support.desc.1": "Nous sommes là pour vous aider avec ",
+  "support.desc.2": ". Remplissez le formulaire ci-dessous et nous vous répondrons dans les plus brefs délais."
 }

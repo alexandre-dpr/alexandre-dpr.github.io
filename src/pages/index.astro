@@ -32,7 +32,7 @@ const i18nMeta = Object.keys(ui).reduce((acc, lang) => {
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {apps.map((app, index) => {
                 const appId = app.id.split('/')[0];
-                return Object.entries(ui).map(([lang, translations]) => {
+                return Object.keys(ui).map((lang) => {
                     const meta = app.data[lang as keyof typeof ui] || app.data.fr || { title: appId, subtitle: '' };
                     return (
                         <a href={`/${appId}`} data-lang={lang} style={`animation-delay: ${100 + index * 100}ms`} class="lang-content group block bg-white rounded-[2rem] p-6 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07)] hover:shadow-xl transition-all border border-slate-100 hover:border-slate-200 opacity-0 animate-fade-in-up hover:-translate-y-1">

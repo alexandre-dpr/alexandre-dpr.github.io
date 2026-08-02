@@ -82,7 +82,7 @@ const { appTitle } = Astro.props;
 </form>
 
 <!-- Hidden elements for JS to extract translated templates -->
-<div class="hidden" aria-hidden="true" id="templates-container">
+<div class="hidden notranslate" translate="no" aria-hidden="true" id="templates-container">
     <div id="tpl-bug" style="white-space: pre-wrap;"><I18n id="form.template.bug" /></div>
     <div id="tpl-idea" style="white-space: pre-wrap;"><I18n id="form.template.idea" /></div>
     <div id="tpl-other" style="white-space: pre-wrap;"><I18n id="form.template.other" /></div>
@@ -115,6 +115,8 @@ const { appTitle } = Astro.props;
             this.initCaptcha();
         }
 
+        private currentTemplate = '';
+
         private initTemplateLogic() {
             const autoResize = () => {
                 if (!this.textarea) return;
@@ -133,8 +135,11 @@ const { appTitle } = Astro.props;
                     const activeLangSpan = tplContainer.querySelector(`span[data-lang="${lang}"]`);
                     
                     if (activeLangSpan) {
-                        const newTemplate = activeLangSpan.textContent || '';
-                        if (this.textarea.value.trim() === '' || this.textarea.value === this.currentTemplate) {
+                        const newTemplate = (activeLangSpan.textContent || '').trim().replace(/\r\n/g, '\n');
+                        const currentText = (this.textarea.value || '').trim().replace(/\r\n/g, '\n');
+                        const oldTemplate = this.currentTemplate.trim().replace(/\r\n/g, '\n');
+                        
+                        if (currentText === '' || currentText === oldTemplate) {
                             this.textarea.value = newTemplate;
                             this.currentTemplate = newTemplate;
                             autoResize();
@@ -147,7 +152,7 @@ const { appTitle } = Astro.props;
             if (this.textarea) this.textarea.addEventListener('input', autoResize);
             
             setTimeout(updateTemplate, 50);
-            window.addEventListener('languageChanged', () => setTimeout(updateTemplate, 10));
+            window.addEventListener('languageChanged', () => setTimeout(updateTemplate, 50));
         }
 
         private initValidation() {
@@ -249,4 +254,4 @@ const { appTitle } = Astro.props;
         new SupportFormController();
     });
 </script>
-<script src="https://web3forms.com/client/script.js" async defer></script>
+<script is:inline src="https://web3forms.com/client/script.js" async defer></script>

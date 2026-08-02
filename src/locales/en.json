@@ -30,5 +30,15 @@
   "form.email.error": "Please enter a valid email address.",
   "form.success.desc": "Thank you for contacting us. We will process your request and get back to you as soon as possible.",
   "nav.tagline": "Independent iOS Studio",
-  "site.description": "iOS Apps Studio"
+  "site.description": "iOS Apps Studio",
+  "page.404.title": "Page not found",
+  "page.404.desc": "The app or page you are looking for does not exist or has been moved.",
+  "nav.home": "Back to home",
+  "a11y.lang_picker": "Change language",
+  "a11y.prev_img": "Previous image",
+  "a11y.next_img": "Next image",
+  "a11y.close": "Close",
+  "support.title": "Support",
+  "support.desc.1": "We are here to help you with ",
+  "support.desc.2": ". Fill out the form below and we will get back to you as soon as possible."
 }

@@ -1,5 +1,6 @@
 ---
 import { languages } from '../utils/i18n';
+import I18n from './I18n.astro';
 
 const flags = {
   fr: 'fr',
@@ -11,12 +12,13 @@ const flags = {
 };
 ---
 
-<div class="relative group" id="language-picker">
-    <button class="flex items-center gap-1 text-2xl hover:scale-105 transition-transform p-1 rounded-full cursor-default">
+<div class="relative" id="language-picker">
+    <button id="lang-menu-btn" aria-haspopup="true" aria-expanded="false" class="flex items-center gap-1 text-2xl hover:scale-105 transition-transform p-1 rounded-full cursor-pointer">
+        <span class="sr-only"><I18n id="a11y.lang_picker" /></span>
         <img id="current-flag" src={`https://flagcdn.com/w40/${flags['fr']}.png`} width="24" alt="fr" class="rounded-sm shadow-sm border border-slate-200/50" />
     </button>
     
-    <div class="absolute right-0 top-full mt-1 w-36 bg-white rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-slate-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 flex flex-col overflow-hidden z-50 py-1">
+    <div id="lang-menu" class="absolute right-0 top-full mt-1 w-36 bg-white rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-slate-100 opacity-0 invisible transition-all duration-200 flex flex-col overflow-hidden z-50 py-1 origin-top scale-95">
         {Object.entries(languages).map(([code, name]) => (
             <button 
                 data-lang-select={code}
@@ -64,13 +66,50 @@ const flags = {
     };
 
     document.addEventListener('astro:page-load', () => {
-        // Attach click events
+        // Attach click events for languages
         document.querySelectorAll('.lang-option').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const lang = (e.currentTarget as HTMLElement).getAttribute('data-lang-select');
                 if (lang) setLanguage(lang);
+                
+                // Close menu after selection
+                const menu = document.getElementById('lang-menu');
+                if (menu) {
+                    menu.classList.remove('opacity-100', 'visible', 'scale-100');
+                    menu.classList.add('opacity-0', 'invisible', 'scale-95');
+                }
+                const menuBtn = document.getElementById('lang-menu-btn');
+                if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');
             });
         });
+
+        // Toggle menu on button click
+        const langMenuBtn = document.getElementById('lang-menu-btn');
+        const langMenu = document.getElementById('lang-menu');
+        if (langMenuBtn && langMenu) {
+            langMenuBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isHidden = langMenu.classList.contains('opacity-0');
+                if (isHidden) {
+                    langMenu.classList.remove('opacity-0', 'invisible', 'scale-95');
+                    langMenu.classList.add('opacity-100', 'visible', 'scale-100');
+                    langMenuBtn.setAttribute('aria-expanded', 'true');
+                } else {
+                    langMenu.classList.add('opacity-0', 'invisible', 'scale-95');
+                    langMenu.classList.remove('opacity-100', 'visible', 'scale-100');
+                    langMenuBtn.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            // Close when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!langMenuBtn.contains(e.target as Node) && !langMenu.contains(e.target as Node)) {
+                    langMenu.classList.remove('opacity-100', 'visible', 'scale-100');
+                    langMenu.classList.add('opacity-0', 'invisible', 'scale-95');
+                    langMenuBtn.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
 
         // Initialize UI on load
         const savedLang = localStorage.getItem('user-lang') || (navigator.language.slice(0, 2).toLowerCase());

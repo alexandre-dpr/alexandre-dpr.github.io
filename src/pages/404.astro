@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import I18n from '../components/I18n.astro';
+import { ui } from '../utils/i18n';
+
+const i18nMeta = Object.keys(ui).reduce((acc, lang) => {
+    // @ts-ignore
+    acc[lang] = {
+        // @ts-ignore
+        title: `404 - ${ui[lang]['page.404.title']}`
+    };
+    return acc;
+}, {} as Record<string, { title: string }>);
+---
+
+<Layout title="404 - Page introuvable" i18n={i18nMeta}>
+    <div class="flex-grow flex flex-col items-center justify-center text-center px-4 py-24 sm:py-32">
+        <h1 class="text-7xl sm:text-9xl font-extrabold text-slate-200 tracking-tighter mb-4 opacity-0 animate-fade-in-up">404</h1>
+        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-4 opacity-0 animate-fade-in-up" style="animation-delay: 100ms">
+            <I18n id="page.404.title" />
+        </h2>
+        <p class="text-slate-500 max-w-md mx-auto mb-8 opacity-0 animate-fade-in-up" style="animation-delay: 200ms">
+            <I18n id="page.404.desc" />
+        </p>
+        <a href="/" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5 opacity-0 animate-fade-in-up" style="animation-delay: 300ms">
+            <I18n id="nav.home" />
+        </a>
+    </div>
+</Layout>

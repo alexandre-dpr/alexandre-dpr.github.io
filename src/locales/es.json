@@ -30,5 +30,15 @@
   "form.email.error": "Por favor, introduce una dirección de correo válida.",
   "form.success.desc": "Gracias por contactarnos. Procesaremos su solicitud y le responderemos lo antes posible.",
   "nav.tagline": "Estudio iOS independiente",
-  "site.description": "Estudio de aplicaciones iOS"
+  "site.description": "Estudio de aplicaciones iOS",
+  "page.404.title": "Página no encontrada",
+  "page.404.desc": "La aplicación o página que buscas no existe o ha sido movida.",
+  "nav.home": "Volver al inicio",
+  "a11y.lang_picker": "Cambiar idioma",
+  "a11y.prev_img": "Imagen anterior",
+  "a11y.next_img": "Siguiente imagen",
+  "a11y.close": "Cerrar",
+  "support.title": "Soporte",
+  "support.desc.1": "Estamos aquí para ayudarte con ",
+  "support.desc.2": ". Completa el formulario a continuación y nos pondremos en contacto contigo lo antes posible."
 }

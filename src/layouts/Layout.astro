@@ -1,65 +1,185 @@
 ---
-import '../styles/global.css';
-import LanguagePicker from '../components/LanguagePicker.astro';
-import I18n from '../components/I18n.astro';
-import { ClientRouter } from 'astro:transitions';
-import { ui } from '../utils/i18n';
+import "../styles/global.css";
+import LanguagePicker from "../components/LanguagePicker.astro";
+import I18n from "../components/I18n.astro";
+import { ClientRouter } from "astro:transitions";
 
 interface Props {
-	title: string;
+    title: string;
     description?: string;
-    i18n?: Record<string, { title: string, description?: string }>;
+    image?: string;
+    i18n?: Record<string, { title: string; description?: string }>;
 }
 
-const { title, description, i18n } = Astro.props;
+const { title, description, image, i18n } = Astro.props;
+const canonicalURL = new URL(
+    Astro.url.pathname,
+    Astro.site || "https://alexandre-dpr.github.io/",
+);
 ---
 
 <!doctype html>
 <html lang="en" class="lang-en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content={description} id="meta-description" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="description" content={description} id="meta-description" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+        />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{title}</title>
+
+        {/* OpenGraph & SEO */}
+        <link rel="canonical" href={canonicalURL} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={canonicalURL} />
+        <meta property="og:title" content={title} id="og-title" />
+        {
+            description && (
+                <meta
+                    property="og:description"
+                    content={description}
+                    id="og-description"
+                />
+            )
+        }
+        {
+            image && (
+                <meta property="og:image" content={new URL(image, Astro.url)} />
+            )
+        }
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:url" content={canonicalURL} />
+        <meta name="twitter:title" content={title} id="twitter-title" />
+        {
+            description && (
+                <meta
+                    name="twitter:description"
+                    content={description}
+                    id="twitter-description"
+                />
+            )
+        }
+        {
+            image && (
+                <meta
+                    name="twitter:image"
+                    content={new URL(image, Astro.url)}
+                />
+            )
+        }
         <ClientRouter />
-        
-        <script is:inline id="i18n-meta" type="application/json" set:html={JSON.stringify(i18n || {})}></script>
+
+        <script
+            is:inline
+            id="i18n-meta"
+            type="application/json"
+            set:html={JSON.stringify(i18n || {})}
+        />
         <script is:inline>
-            (function() {
-                var valid = ['fr', 'en', 'es', 'it', 'pt', 'de'];
-                var stored = localStorage.getItem('user-lang');
-                var browser = navigator.language.slice(0, 2).toLowerCase();
-                var lang = valid.includes(stored) ? stored : (valid.includes(browser) ? browser : 'en');
-                document.documentElement.lang = lang;
-                document.documentElement.className = 'lang-' + lang;
-                window.initialLang = lang;
-                
-                var metaDataEl = document.getElementById('i18n-meta');
-                var metaData = metaDataEl && metaDataEl.textContent ? JSON.parse(metaDataEl.textContent) : {};
-                
-                function updateMeta(l) {
-                    if (metaData[l]) {
-                        if (metaData[l].title) document.title = metaData[l].title;
-                        var descEl = document.getElementById('meta-description');
-                        if (descEl && metaData[l].description) descEl.setAttribute('content', metaData[l].description);
+            (function () {
+                var valid = ["fr", "en", "es", "it", "pt", "de"];
+
+                function getLang() {
+                    var stored = localStorage.getItem("user-lang");
+                    var browser = navigator.language.slice(0, 2).toLowerCase();
+                    return valid.includes(stored)
+                        ? stored
+                        : valid.includes(browser)
+                          ? browser
+                          : "en";
+                }
+
+                function applyLang() {
+                    var lang = getLang();
+                    document.documentElement.lang = lang;
+                    document.documentElement.className = "lang-" + lang;
+                    window.initialLang = lang;
+
+                    var metaDataEl = document.getElementById("i18n-meta");
+                    var metaData =
+                        metaDataEl && metaDataEl.textContent
+                            ? JSON.parse(metaDataEl.textContent)
+                            : {};
+
+                    if (metaData[lang]) {
+                        if (metaData[lang].title) {
+                            document.title = metaData[lang].title;
+                            var ogTitle = document.getElementById("og-title");
+                            var twTitle =
+                                document.getElementById("twitter-title");
+                            if (ogTitle)
+                                ogTitle.setAttribute(
+                                    "content",
+                                    metaData[lang].title,
+                                );
+                            if (twTitle)
+                                twTitle.setAttribute(
+                                    "content",
+                                    metaData[lang].title,
+                                );
+                        }
+                        var descEl =
+                            document.getElementById("meta-description");
+                        var ogDesc = document.getElementById("og-description");
+                        var twDesc = document.getElementById(
+                            "twitter-description",
+                        );
+                        if (metaData[lang].description) {
+                            if (descEl)
+                                descEl.setAttribute(
+                                    "content",
+                                    metaData[lang].description,
+                                );
+                            if (ogDesc)
+                                ogDesc.setAttribute(
+                                    "content",
+                                    metaData[lang].description,
+                                );
+                            if (twDesc)
+                                twDesc.setAttribute(
+                                    "content",
+                                    metaData[lang].description,
+                                );
+                        }
                     }
                 }
-                
-                updateMeta(lang);
 
-                window.addEventListener('languageChanged', function(e) {
-                    if (e.detail && e.detail.lang) updateMeta(e.detail.lang);
+                // Run on initial load
+                applyLang();
+
+                // Run on subsequent navigations (ViewTransitions)
+                document.addEventListener("astro:after-swap", applyLang);
+
+                // Listen for language changes from picker
+                window.addEventListener("languageChanged", function (e) {
+                    if (e.detail && e.detail.lang) {
+                        applyLang(); // Re-apply to update meta tags
+                    }
                 });
             })();
         </script>
-	</head>
-	<body class="bg-slate-50 text-slate-900 font-sans antialiased min-h-screen flex flex-col selection:bg-blue-100 selection:text-blue-900">
-        <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
-            <div class="max-w-5xl mx-auto px-4 py-4 flex justify-between items-center">
-                <a href="/" class="text-xl font-semibold tracking-tight text-slate-900 hover:text-blue-600 transition-colors">
-                    Alexandre Dupré <span class="font-light text-slate-500 ml-1.5">Apps</span>
+    </head>
+    <body
+        class="bg-slate-50 text-slate-900 font-sans antialiased min-h-[100dvh] flex flex-col selection:bg-blue-100 selection:text-blue-900"
+    >
+        <header
+            class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200"
+        >
+            <div
+                class="max-w-5xl mx-auto px-4 py-4 flex justify-between items-center"
+            >
+                <a
+                    href="/"
+                    class="text-xl font-semibold tracking-tight text-slate-900 hover:text-blue-600 transition-colors"
+                >
+                    Alexandre Dupré <span
+                        class="font-light text-slate-500 ml-1.5">Apps</span
+                    >
                 </a>
                 <nav class="flex gap-4 items-center">
                     <slot name="header-actions" />
@@ -67,43 +187,49 @@ const { title, description, i18n } = Astro.props;
                 </nav>
             </div>
         </header>
-        
+
         <main class="flex-grow">
-		    <slot />
+            <slot />
         </main>
-        
-        <footer class="bg-slate-900 text-slate-400 py-12 text-sm text-center mt-12">
+
+        <footer
+            class="bg-slate-900 text-slate-400 py-12 text-sm text-center mt-auto"
+        >
             <div class="max-w-5xl mx-auto px-4">
-                <p>&copy; {new Date().getFullYear()} Alexandre Dupré. <I18n id="footer.rights" /></p>
+                <p>
+                    &copy; {new Date().getFullYear()} Alexandre Dupré. <I18n
+                        id="footer.rights"
+                    />
+                </p>
             </div>
         </footer>
 
         <script>
             const initSkeletons = () => {
-                document.querySelectorAll('img.img-lazy').forEach(element => {
+                document.querySelectorAll("img.img-lazy").forEach((element) => {
                     const img = element as HTMLImageElement;
-                    const wrapper = img.closest('.skeleton-wrapper');
+                    const wrapper = img.closest(".skeleton-wrapper");
                     const onLoad = () => {
-                        if (wrapper) wrapper.classList.remove('skeleton');
-                        img.classList.remove('opacity-0');
+                        if (wrapper) wrapper.classList.remove("skeleton");
+                        img.classList.remove("opacity-0");
                     };
                     if (img.complete) {
                         onLoad();
                     } else {
-                        img.addEventListener('load', onLoad, { once: true });
-                        img.addEventListener('error', onLoad, { once: true });
+                        img.addEventListener("load", onLoad, { once: true });
+                        img.addEventListener("error", onLoad, { once: true });
                     }
                 });
             };
 
-            document.addEventListener('astro:page-load', () => {
+            document.addEventListener("astro:page-load", () => {
                 initSkeletons();
             });
-            
+
             // Allow triggering from other scripts via events (e.g. language change)
-            window.addEventListener('update-skeletons', () => {
+            window.addEventListener("update-skeletons", () => {
                 setTimeout(initSkeletons, 10);
             });
         </script>
-	</body>
+    </body>
 </html>
