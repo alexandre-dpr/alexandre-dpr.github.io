@@ -1,5 +1,5 @@
 # Nutzungsbedingungen
-**Letzte Aktualisierung: 27 Juli 2026**
+**Letzte Aktualisierung: 7. Oktober 2026**
 
 ## 1. Einverständnis mit den Bedingungen
 Durch den Zugriff auf oder die Nutzung von Anchor erklären Sie sich mit diesen Nutzungsbedingungen einverstanden. Wenn Sie diesen Bedingungen nicht zustimmen, ist Ihnen die Nutzung der App untersagt.
@@ -17,6 +17,13 @@ Anchor bietet Premium-Funktionen über sich automatisch verlängernde Abonnement
 - Ihr Konto wird innerhalb von 24 Stunden vor dem Ende des aktuellen Zeitraums für die Verlängerung zum ursprünglichen Abonnementpreis belastet.
 - Sie können Ihre Abonnements verwalten und die automatische Verlängerung deaktivieren, indem Sie nach dem Kauf Ihre App Store-Kontoeinstellungen aufrufen.
 - Jeder ungenutzte Teil eines kostenlosen Testzeitraums, falls angeboten, verfällt, wenn der Nutzer ein Abonnement erwirbt.
+
+### Empfehlungsprogramm & Botschafter
+Anchor bietet ein Empfehlungsprogramm über Aktionscodes an, die ausschließlich Partnern und Botschaftern nach alleinigem Ermessen von Alexandre Dupré zur Verfügung gestellt werden.
+- **Berechtigte Pläne:** Empfehlungscodes gelten ausschließlich für wiederkehrende Abonnements (Monatlich und Jährlich). Der einmalige lebenslange Kauf („Auf Lebenszeit“ / Lifetime) ist ausdrücklich vom Programm ausgeschlossen; die Eingabe eines Codes beim Kauf auf Lebenszeit gewährt weder Rabatt noch Zusatzmonate.
+- **Art des Vorteils:** Durch das Einlösen eines gültigen Empfehlungscodes erhalten Sie 30 (dreißig) zusätzliche kostenlose Tage Premium-Zugang. Diese 30 Gratistage verschieben oder ändern die von Apple über den App Store verwalteten Abrechnungsdaten nicht.
+- **Aktivierung & Bedingungen:** Die 30 Gratistage werden am Ende des bezahlten Abonnementzeitraums wirksam, wenn die automatische Verlängerung deaktiviert wird (Kündigung). Der Vorteil der 30 Gratistage setzt zwingend die tatsächliche Zahlung mindestens eines Abrechnungszyklus voraus. Wird das Jahresabonnement während des anfänglichen 7-tägigen kostenlosen Testzeitraums ohne tatsächliche Zahlung gekündigt, werden die 30 Gratistage nicht aktiviert.
+- **Nutzungsregeln:** Pro Abonnementzyklus kann nur ein Code eingelöst werden. Codes haben keinen Barwert und sind weder erstattungsfähig noch übertragbar. Alexandre Dupré behält sich das Recht vor, Codes zu sperren oder das Programm bei Missbrauch oder Beendigung einer Partnerschaft auszusetzen.
 
 ## 5. Unzulässiges Verhalten
 Sie dürfen nicht versuchen, den Quellcode der App zu dekompilieren, zurückzuentwickeln (Reverse Engineering) oder zu extrahieren. Sie dürfen die App nicht für illegale Zwecke oder unter Verstoß gegen lokale, staatliche oder internationale Gesetze nutzen.

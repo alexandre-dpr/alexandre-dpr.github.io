@@ -1,5 +1,5 @@
 # Termos de Utilização
-**Última atualização: 27 de julho de 2026**
+**Última atualização: 7 de outubro de 2026**
 
 ## 1. Aceitação dos Termos
 Ao aceder ou utilizar o Anchor, concorda em ficar vinculado por estes Termos de Utilização. Se não concordar com estes termos, está proibido de utilizar o Aplicativo.
@@ -17,6 +17,13 @@ O Anchor disponibiliza funcionalidades premium através de subscrições de reno
 - A sua conta será cobrada para renovação no prazo de 24 horas antes do final do período atual, ao preço original da subscrição.
 - Pode gerir as suas subscrições e desativar a renovação automática acedendo às Definições da sua conta App Store após a compra.
 - Qualquer parte não utilizada de um período de teste gratuito, se oferecido, será cancelada quando o utilizador adquirir uma subscrição.
+
+### Programa de Recomendação e Embaixadores
+O Anchor oferece um programa de recomendação através de códigos promocionais atribuídos exclusivamente a parceiros e embaixadores selecionados a critério exclusivo de Alexandre Dupré.
+- **Planos elegíveis:** Os códigos de recomendação aplicam-se exclusivamente a subscrições recorrentes (Mensal e Anual). A compra única vitalícia («Vitalícia» / Lifetime) está expressamente excluída do programa; a introdução de um código ao adquirir a opção vitalícia não confere qualquer desconto ou vantagem.
+- **Natureza da vantagem:** A validação de um código de recomendação válido concede 30 (trinta) dias adicionais gratuitos de acesso premium. Estes 30 dias de oferta não adiam nem alteram as datas de cobrança geridas pela Apple através da App Store.
+- **Ativação e condições:** Os 30 dias de oferta entram em vigor no final do período de subscrição paga quando a renovação automática é desativada (cancelamento). A atribuição destes 30 dias gratuitos está estritamente condicionada ao pagamento efetivo de pelo menos um ciclo de cobrança. Consequentemente, caso a subscrição anual seja cancelada durante o período experimental gratuito inicial de 7 dias sem qualquer cobrança efetiva, os 30 dias gratuitos não serão ativados.
+- **Regras de utilização:** Apenas pode ser aplicado um código por ciclo de subscrição. Os códigos não têm valor monetário e não são reembolsáveis nem transmissíveis. Alexandre Dupré reserva-se o direito de revogar um código ou suspender o programa em caso de uso indevido ou cessação de uma parceria.
 
 ## 5. Conduta Proibida
 Não pode tentar descompilar, fazer engenharia reversa ou extrair o código-fonte do Aplicativo. Não pode utilizar o Aplicativo para qualquer fim ilegal ou em violação das leis locais, estatais ou internacionais.

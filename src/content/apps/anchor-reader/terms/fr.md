@@ -1,5 +1,5 @@
 # Conditions d'Utilisation
-**Dernière mise à jour : 27 juillet 2026**
+**Dernière mise à jour : 7 octobre 2026**
 
 ## 1. Acceptation des Conditions
 En accédant à Anchor ou en l'utilisant, vous acceptez d'être lié par ces Conditions d'Utilisation. Si vous n'acceptez pas ces conditions, il vous est interdit d'utiliser l'Application.
@@ -17,6 +17,13 @@ Anchor propose des fonctionnalités premium via des abonnements à renouvellemen
 - Votre compte sera débité pour le renouvellement dans les 24 heures précédant la fin de la période en cours, au prix de l'abonnement initial.
 - Vous pouvez gérer vos abonnements et désactiver le renouvellement automatique en accédant aux paramètres de votre compte App Store après l'achat.
 - Toute partie inutilisée d'une période d'essai gratuit, si elle est offerte, sera perdue lorsque l'utilisateur souscrit un abonnement.
+
+### Programme de Parrainage et Ambassadeurs
+Anchor propose un programme de parrainage accessible via des codes promotionnels attribués exclusivement à des partenaires et ambassadeurs sélectionnés à la discrétion d'Alexandre Dupré.
+- **Forfaits éligibles :** Les codes de parrainage s'appliquent exclusivement aux souscriptions d'abonnements récurrents (mensuels et annuels). L'achat unique à vie (« À vie » / Lifetime) est expressément exclu du programme ; la saisie d'un code lors de l'achat de l'offre à vie ne confère aucune réduction ni avantage.
+- **Nature de l'avantage :** La validation d'un code de parrainage confère 30 (trente) jours supplémentaires d'accès premium offert. Ces 30 jours offerts ne retardent ni ne modifient les dates de prélèvement fixées par Apple via l'App Store.
+- **Activation et conditions d'accès :** Les 30 jours offerts prennent effet à la fin de la période d'abonnement payant lorsque le renouvellement automatique est désactivé (résiliation). Le bénéfice de ces 30 jours offerts est strictement conditionné au paiement effectif d'au moins une période d'abonnement payante. Par conséquent, en cas d'annulation de l'abonnement annuel au cours de sa période d'essai gratuit initiale de 7 jours sans prélèvement effectif, les 30 jours offerts ne seront pas activés.
+- **Règles d'utilisation :** Un seul code peut être appliqué par cycle d'abonnement. Les codes n'ont aucune valeur monétaire marchande et ne sont ni remboursables ni échangeables. Alexandre Dupré se réserve le droit de révoquer un code ou de suspendre le programme en cas d'utilisation abusive ou de cessation d'un partenariat.
 
 ## 5. Comportements Interdits
 Vous ne pouvez pas tenter de décompiler, de faire de l'ingénierie inverse ou d'extraire le code source de l'Application. Vous ne pouvez pas utiliser l'Application à des fins illégales ou en violation des lois locales, nationales ou internationales.
