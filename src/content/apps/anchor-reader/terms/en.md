@@ -1,5 +1,5 @@
 # Terms of Use
-**Last Updated: July 27, 2026**
+**Last Updated: October 7, 2026**
 
 ## 1. Agreement to Terms
 By accessing or using Anchor, you agree to be bound by these Terms of Use. If you do not agree to these terms, you are prohibited from using the App.
@@ -17,6 +17,13 @@ Anchor offers premium features through auto-renewing subscriptions and one-time 
 - Your account will be charged for renewal within 24-hours prior to the end of the current period, at the original subscription price.
 - You can manage your subscriptions and turn off auto-renewal by going to your App Store Account Settings after purchase.
 - Any unused portion of a free trial period, if offered, will be forfeited when the user purchases a subscription.
+
+### Referral Program & Ambassadors
+Anchor offers a referral program accessible via codes exclusively issued to partners and ambassadors selected at Alexandre Dupré's sole discretion.
+- **Eligible Plans:** Referral codes apply exclusively to recurring subscriptions (Monthly and Annual). The one-time lifetime purchase ("Lifetime") is expressly excluded from the program; entering a code when purchasing Lifetime grants no discount or bonus.
+- **Nature of the Benefit:** Redeeming a valid referral code grants 30 (thirty) additional free days of premium access. These 30 bonus days do not delay or modify the billing schedule managed by Apple via the App Store.
+- **Activation & Conditions:** The 30 bonus days take effect at the end of the paid subscription period when auto-renewal is turned off (cancellation). The benefit of these 30 bonus days is strictly conditioned upon the actual completion and payment of at least one billing cycle. Consequently, if the Annual subscription is cancelled during its initial 7-day free trial period without any paid charge, the 30 bonus days will not be activated.
+- **Usage Rules:** Only one code may be applied per subscription cycle. Codes have no monetary value and are non-refundable and non-transferable. Alexandre Dupré reserves the right to revoke a code or suspend the program in the event of misuse or termination of a partnership.
 
 ## 5. Prohibited Conduct
 You may not attempt to decompile, reverse engineer, or extract the source code of the App. You may not use the App for any illegal purpose or in violation of local, state, or international laws.
